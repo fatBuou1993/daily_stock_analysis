@@ -37,7 +37,8 @@ jobs:
     # 推荐位置仍是 Settings -> Secrets and variables -> Actions -> Repository variables。
     environment: STOCK_LIST
     # 添加超时限制，防止任务卡死
-    timeout-minutes: ${{ fromJSON(vars.ANALYSIS_TIMEOUT_MINUTES || '30') }}
+    timeout-minutes: ${{ fromJSON(vars.ANALYSIS_TIMEOUT_MINUTES || '360') }}
+    # 使用中发现超过10支股票发分析时间就超过30分钟，会被这句中断，GitHub最大支持6小时的运行，应该在LLM的返回进行延时验证
     
     steps:
       - name: 随机延迟（避免固定时间访问）
